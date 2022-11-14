@@ -1,6 +1,9 @@
 # Metro-Manila
  Taters Software Development Team Technical Exam
 
+# Postman
+1. Install Postman (Optional)
+
 # Step
 1. Run Xampp Panel
 2. Open 2 Terminal
