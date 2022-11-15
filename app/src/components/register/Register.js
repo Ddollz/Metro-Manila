@@ -10,6 +10,7 @@ export default function Register() {
     const [cities, setcities] = useState();
     const [baragays, setBaragays] = useState();
     const [filteredBarangay, setfilteredBarangay] = useState();
+    const [error, setError] = useState({});
 
     const [inputs, setInputs] = useState({});
     const fetchCity = () => {
@@ -55,16 +56,16 @@ export default function Register() {
             "address": event.target.address.value,
             "city_id": event.target.city_id.value,
             "barangay_id": event.target.barangay_id.value,
-            "ActivationMail": window.location.href+"activate/"+result
+            "ActivationMail": window.location.href + "activate/" + result
         }
         console.log(data)
         axios.post(url + "user/create", data).then(function (response) {
             console.log(response.data)
             navigate('login')
-        }).catch(function (error) {
-                console.log(data);
-                console.log(error);
-            });
+        }).catch(function (e) {
+            setError(e.response.data.messages)
+            console.log(error)
+        });
     }
     useEffect(() => {
         fetchCity();
@@ -78,45 +79,45 @@ export default function Register() {
             <form method='POST' onSubmit={handleSubmit}>
                 <div className="inputWrapper mt-5">
                     <div>
-                        <label htmlFor="Usernmame">Username</label>
-                        <input type="text" placeholder="Username" id="Username" name="username" required onChange={handleChange} />
+                        <label htmlFor="Usernmame" className={error['username'] ? 'text-rose-500' : ''} >Username</label>
+                        <input type="text" placeholder="Username" id="Username" name="username" className={error['username'] ? 'text-rose-500' : ''} required onChange={handleChange} />
                     </div>
                     <div>
-                        <label htmlFor="Password">Password</label>
-                        <input type="password" placeholder="Password" id="Password" name="password" required onChange={handleChange} />
-                    </div>
-                </div>
-
-                <div className="inputWrapper mt-5">
-                    <div>
-                        <label htmlFor="Firstname">First name</label>
-                        <input type="text" placeholder="Firstname" id="Firstname" name="firstname" required onChange={handleChange} />
-                    </div>
-                    <div>
-                        <label htmlFor="Lastname">Last name</label>
-                        <input type="text" placeholder="Lastname" id="Lastname" name="lastname" required onChange={handleChange} />
+                        <label htmlFor="Password" className={error['password'] ? 'text-rose-500' : ''}>Password</label>
+                        <input type="password" placeholder="Password" id="Password" name="password" className={error['password'] ? 'text-rose-500' : ''} required onChange={handleChange} />
                     </div>
                 </div>
 
                 <div className="inputWrapper mt-5">
                     <div>
-                        <label htmlFor="Email">Email address</label>
-                        <input type="email" placeholder="Email" id="Email" name="email" required onChange={handleChange} />
+                        <label htmlFor="Firstname" className={error['firstname'] ? 'text-rose-500' : ''}>First name</label>
+                        <input type="text" placeholder="Firstname" id="Firstname" name="firstname" className={error['firstname'] ? 'text-rose-500' : ''} required onChange={handleChange} />
                     </div>
                     <div>
-                        <label htmlFor="Mobileno">Mobile number</label>
-                        <input type="tel" placeholder="09286120906" id="Mobileno" name="mobileno" required onChange={handleChange} />
+                        <label htmlFor="Lastname" className={error['lastname'] ? 'text-rose-500' : ''}>Last name</label>
+                        <input type="text" placeholder="Lastname" id="Lastname" name="lastname" className={error['lastname'] ? 'text-rose-500' : ''} required onChange={handleChange} />
                     </div>
                 </div>
 
                 <div className="inputWrapper mt-5">
                     <div>
-                        <label htmlFor="Age">Age</label>
-                        <input type="text" placeholder="Age" id="Age" name="age" required onChange={handleChange} />
+                        <label htmlFor="Email" className={error['email'] ? 'text-rose-500' : ''}>Email address</label>
+                        <input type="email" placeholder="Email" id="Email" name="email" className={error['email'] ? 'text-rose-500' : ''} required onChange={handleChange} />
                     </div>
                     <div>
-                        <label htmlFor="Gender">Gender</label>
-                        <select name="gender" id="Gender" required onChange={handleChange} >
+                        <label htmlFor="Mobileno" className={error['mobileno'] ? 'text-rose-500' : ''}>Mobile number</label>
+                        <input type="tel" placeholder="09286120906" className={error['mobileno'] ? 'text-rose-500' : ''} id="Mobileno" name="mobileno" required onChange={handleChange} />
+                    </div>
+                </div>
+
+                <div className="inputWrapper mt-5">
+                    <div>
+                        <label htmlFor="Age" className={error['age'] ? 'text-rose-500' : ''}>Age</label>
+                        <input type="text" placeholder="Age" id="Age" name="age" className={error['age'] ? 'text-rose-500' : ''} required onChange={handleChange} />
+                    </div>
+                    <div>
+                        <label htmlFor="Gender" className={error['gender'] ? 'text-rose-500' : ''}>Gender</label>
+                        <select name="gender" id="Gender" required className={error['gender'] ? 'text-rose-500' : ''} onChange={handleChange} >
                             <option value='M'>Male</option>
                             <option value='F'>Female</option>
                         </select>
@@ -125,15 +126,15 @@ export default function Register() {
 
                 <div className="inputWrapper mt-5">
                     <div>
-                        <label htmlFor="Address">Address 1 (House, Street, Village):</label>
-                        <input type="text" placeholder="TEI Center, 3536 Hilario Street" id="Address" name="address" required onChange={handleChange} />
+                        <label htmlFor="Address" className={error['address'] ? 'text-rose-500' : ''}>Address 1 (House, Street, Village):</label>
+                        <input type="text" placeholder="TEI Center, 3536 Hilario Street" id="Address" name="address" className={error['address'] ? 'text-rose-500' : ''} required onChange={handleChange} />
                     </div>
                 </div>
 
                 <div className="inputWrapper mt-5">
                     <div>
                         <label htmlFor="Municipality">Municipality</label>
-                        <select name="city_id" id="Municipality" required onChange={event => handleChange(event, true)}>
+                        <select name="city_id" id="Municipality" className={error['city_id'] ? 'text-rose-500' : ''} required onChange={event => handleChange(event, true)}>
                             {cities?.map((city, key) =>
                                 <option key={key} value={city.id}>{city.city_name}</option>
                             )}
@@ -141,7 +142,7 @@ export default function Register() {
                     </div>
                     <div>
                         <label htmlFor="Barangay">Barangay</label>
-                        <select name="barangay_id" id="Barangay" required onChange={handleChange}>
+                        <select name="barangay_id" id="Barangay" className={error['barangay_id'] ? 'text-rose-500' : ''} required onChange={handleChange}>
 
                             {filteredBarangay?.map((baragay, key) =>
                                 <option key={key} value={baragay.id}>{baragay.barangay_name}</option>
