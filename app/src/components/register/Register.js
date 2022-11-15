@@ -72,7 +72,7 @@ export default function Register() {
         fetchBarangay();
     }, [])
     return (
-        <div className='card border-black drop-shadow-lg w-1/3  rounded-lg py-7'>
+        <div className='card border-black drop-shadow-lg min-w-1/3  rounded-lg py-7'>
             <div className="font-semibold text-5xl text-center">
                 SIGN-UP
             </div>

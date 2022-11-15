@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios";
+import './welcome.css';
 
 const url = "http://localhost:8080/"
 export default function Welcome() {
@@ -81,8 +82,8 @@ export default function Welcome() {
             <div className='text-center font-bold text-lg border-b-2 pb-5'>
                 <span className='text-3xl'>Hello <span className='text-sky-500'>{username}!</span>,</span> <br /> Welcome to my Test Page
             </div>
-            <div className="overflow-x-auto relative">
-                <div className='my-5 mx-5 flex gap-5'>
+            <div className="">
+                <div className='my-5 mx-5 flex gap-5 control'>
                     <div>
                         <label htmlFor="search" className='font-semibold mr-3'>Search: </label><input type="text" id="search" placeholder='Search...' className='p-1' onChange={(e) => setSearch(e.target.value)} />
                     </div>
@@ -105,87 +106,86 @@ export default function Welcome() {
                         </select>
                     </div>
                 </div>
-                <table className="w-full text-sm text-left ">
-                    <thead className="text-xs 0">
-                        <tr>
-                            <th scope="col" className="py-3 px-6">
-                                Username
-                            </th>
-                            <th scope="col" className="py-3 px-6">
-                                Name
-                            </th>
-                            <th scope="col" className="py-3 px-6">
-                                Email
-                            </th>
-                            <th scope="col" className="py-3 px-6">
-                                Contact Number
-                            </th>
-
-                            <th scope="col" className="py-3 px-6">
-                                Gender
-                            </th>
-                            <th scope="col" className="py-3 px-6">
-                                Age
-                            </th>
-                            <th scope="col" className="py-3 px-6">
-                                Barangay
-                            </th>
-                            <th scope="col" className="py-3 px-6">
-                                Municipality
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        {searchUser(users).filter(user => {
-                            if (city_idFilter !== '') {
-                                if (user.city_id === city_idFilter) {
-                                    return user
-                                }
-                                return false
-                            }else{
-                                return user
-                            }
-                        }).filter(user => {
-                            if (barangays_idFilter !== '') {
-                                if (user.barangay_id === barangays_idFilter) {
-                                    return user
-                                }
-                                return false
-                            }else{
-                                return user
-                            }
-                        }).map((user, key) =>
-
-                            <tr className=" border-b " key={key}>
-                                <th scope="row" className="py-4 px-6 ">
-                                    {user.username}
+                <div className='overflow-x-auto relative'>
+                    <table className="w-full text-sm text-left ">
+                        <thead className="text-xs 0">
+                            <tr>
+                                <th scope="col" className="py-3 px-6">
+                                    Username
                                 </th>
-                                <td className="py-4 px-6">
-                                    {user.firstname} {user.lastname}
-                                </td>
-                                <td className="py-4 px-6">
-                                    {user.email}
-                                </td>
-                                <td className="py-4 px-6">
-                                    {user.mobileno}
-                                </td>
-                                <td className="py-4 px-6">
-                                    {gender(user.gender)}
-                                </td>
-                                <td className="py-4 px-6">
-                                    {user.age}
-                                </td>
-                                <td className="py-4 px-6">
-                                    {barangay(user.barangay_id)}
-                                </td>
-                                <td className="py-4 px-6">
-                                    {city(user.city_id)}
-                                </td>
+                                <th scope="col" className="py-3 px-6">
+                                    Name
+                                </th>
+                                <th scope="col" className="py-3 px-6">
+                                    Email
+                                </th>
+                                <th scope="col" className="py-3 px-6">
+                                    Contact Number
+                                </th>
+                                <th scope="col" className="py-3 px-6">
+                                    Gender
+                                </th>
+                                <th scope="col" className="py-3 px-6">
+                                    Age
+                                </th>
+                                <th scope="col" className="py-3 px-6">
+                                    Barangay
+                                </th>
+                                <th scope="col" className="py-3 px-6">
+                                    Municipality
+                                </th>
                             </tr>
-                        )}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {searchUser(users).filter(user => {
+                                if (city_idFilter !== '') {
+                                    if (user.city_id === city_idFilter) {
+                                        return user
+                                    }
+                                    return false
+                                }else{
+                                    return user
+                                }
+                            }).filter(user => {
+                                if (barangays_idFilter !== '') {
+                                    if (user.barangay_id === barangays_idFilter) {
+                                        return user
+                                    }
+                                    return false
+                                }else{
+                                    return user
+                                }
+                            }).map((user, key) =>
+                                <tr className=" border-b " key={key}>
+                                    <th scope="row" className="py-4 px-6 ">
+                                        {user.username}
+                                    </th>
+                                    <td className="py-4 px-6">
+                                        {user.firstname} {user.lastname}
+                                    </td>
+                                    <td className="py-4 px-6">
+                                        {user.email}
+                                    </td>
+                                    <td className="py-4 px-6">
+                                        {user.mobileno}
+                                    </td>
+                                    <td className="py-4 px-6">
+                                        {gender(user.gender)}
+                                    </td>
+                                    <td className="py-4 px-6">
+                                        {user.age}
+                                    </td>
+                                    <td className="py-4 px-6">
+                                        {barangay(user.barangay_id)}
+                                    </td>
+                                    <td className="py-4 px-6">
+                                        {city(user.city_id)}
+                                    </td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     )
