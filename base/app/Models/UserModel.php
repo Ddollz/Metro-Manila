@@ -14,7 +14,7 @@ class UserModel extends Model
         'firstname', 'lastname',
         'email','mobileno',
         'age','gender',
-        'address','city_id',
-        'barangay_id'
+        'address','status'
+        ,'city_id','barangay_id','activation_link'
     ];
 }

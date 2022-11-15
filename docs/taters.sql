@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 14, 2022 at 05:41 PM
+-- Generation Time: Nov 15, 2022 at 02:15 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -570,20 +570,21 @@ CREATE TABLE `user` (
   `age` int(11) NOT NULL,
   `gender` char(1) NOT NULL,
   `address` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0,
   `city_id` int(11) NOT NULL,
-  `barangay_id` int(11) NOT NULL
+  `barangay_id` int(11) NOT NULL,
+  `activation_link` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `password`, `firstname`, `lastname`, `email`, `mobileno`, `age`, `gender`, `address`, `city_id`, `barangay_id`) VALUES
-(21, 'karlerol', '$2y$10$9OBxjK2lWPDOZu6a5Pcql.vjTVAuk36KpeQy8omeKvVfx/Qpx/7Ke', 'karlerol', 'pasion', 'pasionkarlerol@gmail.com', 2147483647, 22, 'M', 'blk. 5 lot. 3 del pilar street, pinalad road, nagpayong centennial ii. pinagbuhatan pasig city', 12, 452),
-(22, 'Ericka', '$2y$10$XsLV5z74hZYCUVixPgk9XerBl0fFkK4R7qY/kGhFOOldQWhA11oYG', 'Ericka Michelle', 'Labajo', 'ErickaMichelle@gmail.com', 2147483647, 21, 'F', 'blk. 5 lot. 3 del pilar street, pinalad road, nagpayong centennial ii. pinagbuhatan pasig city', 1, 271),
-(23, 'James', '$2y$10$Ot4DCOC4EqVW79Wse1NfA.ZQFkT7Pz5egO8.Fv3.qiTpgLZVKzUYq', 'James', 'Manuel', 'James@gmail.com', 909697963, 20, 'F', 'blk. 5 lot. 3 del pilar street, pinalad road, nagpayong centennial ii. pinagbuhatan pasig city', 1, 62),
-(24, 'Jerico', '$2y$10$WYIeYLBcIho8hndZCag0fuGBqCqskRQkp9Nn3kj0f9kwHqJAhdjdq', 'Jerico', 'villaraza', 'Jerico@gmail.com', 958234617, 20, 'M', 'blk. 5 lot. 3 del pilar street, pinalad road, nagpayong centennial ii. pinagbuhatan pasig city', 4, 349),
-(25, 'Ddollz', '$2y$10$XXhq48erG70h8VT3YUHNN.hmkpLfmiVgf7Uxj5afImzdHUJfz88sq', 'Ddoll', 'Dollz', 'erolpasion12@yahoo.com', 2147483647, 23, 'M', '307 D Lakandula Tulip St Tondo Manila', 1, 446);
+INSERT INTO `user` (`id`, `username`, `password`, `firstname`, `lastname`, `email`, `mobileno`, `age`, `gender`, `address`, `status`, `city_id`, `barangay_id`, `activation_link`) VALUES
+(22, 'Ericka', '$2y$10$XsLV5z74hZYCUVixPgk9XerBl0fFkK4R7qY/kGhFOOldQWhA11oYG', 'Ericka Michelle', 'Labajo', 'ErickaMichelle@gmail.com', 2147483647, 21, 'F', 'blk. 5 lot. 3 del pilar street, pinalad road, nagpayong centennial ii. pinagbuhatan pasig city', 0, 1, 271, ''),
+(23, 'James', '$2y$10$Ot4DCOC4EqVW79Wse1NfA.ZQFkT7Pz5egO8.Fv3.qiTpgLZVKzUYq', 'James', 'Manuel', 'James@gmail.com', 909697963, 20, 'F', 'blk. 5 lot. 3 del pilar street, pinalad road, nagpayong centennial ii. pinagbuhatan pasig city', 0, 1, 62, ''),
+(24, 'Jerico', '$2y$10$WYIeYLBcIho8hndZCag0fuGBqCqskRQkp9Nn3kj0f9kwHqJAhdjdq', 'Jerico', 'villaraza', 'Jerico@gmail.com', 958234617, 20, 'M', 'blk. 5 lot. 3 del pilar street, pinalad road, nagpayong centennial ii. pinagbuhatan pasig city', 0, 4, 349, ''),
+(25, 'Ddollz', '$2y$10$XXhq48erG70h8VT3YUHNN.hmkpLfmiVgf7Uxj5afImzdHUJfz88sq', 'Ddoll', 'Dollz', 'erolpasion12@yahoo.com', 2147483647, 23, 'M', '307 D Lakandula Tulip St Tondo Manila', 0, 1, 446, '');
 
 --
 -- Indexes for dumped tables
@@ -630,7 +631,7 @@ ALTER TABLE `city`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- Constraints for dumped tables

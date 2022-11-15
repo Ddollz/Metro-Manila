@@ -42,7 +42,7 @@ $routes->get('barangay', 'Barangay::index');
 $routes->get('user', 'User::index');
 $routes->post('user/login', 'User::login');
 $routes->post('user/create', 'User::create');
-$routes->post('user/show', 'User::show');
+$routes->post('user/activate', 'User::activate');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

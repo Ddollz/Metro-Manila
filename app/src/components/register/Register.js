@@ -37,6 +37,12 @@ export default function Register() {
     };
     const handleSubmit = (event) => {
         event.preventDefault();
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for (var i = 0; i < 20; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
         let data = {
             "username": event.target.username.value,
             "password": event.target.password.value,
@@ -48,11 +54,15 @@ export default function Register() {
             "gender": event.target.gender.value,
             "address": event.target.address.value,
             "city_id": event.target.city_id.value,
-            "barangay_id": event.target.barangay_id.value
+            "barangay_id": event.target.barangay_id.value,
+            "ActivationMail": window.location.href+"activate/"+result
         }
+        console.log(data)
         axios.post(url + "user/create", data).then(function (response) {
+            console.log(response.data)
             navigate('login')
         }).catch(function (error) {
+                console.log(data);
                 console.log(error);
             });
     }

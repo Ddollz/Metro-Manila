@@ -9,3 +9,6 @@
 2. Open 2 Terminal
  - 1. Terminal 1 (cd app - npm start)
  - 2. Terminal 2 (cd base - php spark serve)
+
+Email: harudavy@gmail.com
+Pass: 8@Y4nr^H8!%w

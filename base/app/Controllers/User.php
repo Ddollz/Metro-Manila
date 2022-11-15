@@ -19,9 +19,9 @@ class User extends ResourceController
     {
 
         $model = new UserModel();
-        
+
         $builder = $model->builder();
-        $builder->select('id, username,firstname,lastname,email,mobileno,age,gender,address,city_id,barangay_id');
+        $builder->select('id, username,firstname,lastname,email,mobileno,age,gender,address,status,city_id,barangay_id');
 
         $data = $model->findAll();
         return $this->respond($data);
@@ -54,12 +54,16 @@ class User extends ResourceController
             $password = $this->request->getVar('password');
             $is_username = $user->where('username', $username)->first();
             if ($is_username) {
-                if (password_verify($password, $is_username['password'])) {
-                    return $this->respondCreated(['status' => 1, 'message' => 'Login Success', 'data' => $is_username]);
+                if ($is_username['status'] == 1) {
+                    if (password_verify($password, $is_username['password'])) {
+                        return $this->respondCreated(['status' => 1, 'message' => 'Login Success', 'data' => $is_username]);
+                    } else {
+                        return $this->respondCreated(['status' => 0, 'message' => 'Wrong Password']);
+                    }
                 } else {
-                    return $this->respondCreated(['status' => 0, 'message' => 'Wrong Password']);
+                    return $this->respondCreated(['status' => 0, 'message' => 'Account is not activated!']);
                 }
-            }else{
+            } else {
                 return $this->respondCreated(['status' => 0, 'message' => 'Username does not exist!']);
             }
         }
@@ -98,6 +102,23 @@ class User extends ResourceController
             'city_id' => 'required|numeric',
             'barangay_id' => 'required|numeric'
         ];
+        $chars = array(
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+            'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+            'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+        );
+
+        shuffle($chars);
+
+        $num_chars = count($chars) - 1;
+        $token = '';
+
+        for ($i = 0; $i < $num_chars; $i++) { // <-- $num_chars instead of $len
+            $token .= $chars[mt_rand(0, $num_chars)];
+        }
+
         if (!$this->validate($rules)) {
             return $this->fail($this->validator->getErrors());
         } else {
@@ -113,14 +134,42 @@ class User extends ResourceController
                 'address' => $this->request->getVar('address'),
                 'city_id' => $this->request->getVar('city_id'),
                 'barangay_id' => $this->request->getVar('barangay_id'),
+                'activation_link' => $this->request->getVar('ActivationMail'),
             ];
-            // return $data;
+
+
             $model = new UserModel();
             $model->save($data);
+
+
+            $message = "Please activate the account " . anchor($data['activation_link'] . '/' . $model->getInsertID(), 'Activate Now', '');
+            $email = \Config\Services::email();
+
+            $email->setFrom('harudavy@gmail.com', 'harudavy');
+            $email->setTo($this->request->getVar('email'));
+
+            $email->setSubject('Activate the account');
+            $email->setMessage($message);
+
+            $email->send();
+            $email->printDebugger(['headers']);
             return $this->respondCreated($data);
         }
     }
 
+    public function activate()
+    {
+
+        $data = [
+            'status' => 1,
+        ];
+        $id = $this->request->getVar('id');
+
+        $model = new UserModel();
+        $model->update($id, $data);
+
+        return $this->respondCreated($data);
+    }
     /**
      * Return the editable properties of a resource object
      *
