@@ -95,7 +95,7 @@ class User extends ResourceController
             'firstname' => 'required',
             'lastname' => 'required',
             'email' => 'required|valid_email',
-            'mobileno' => 'required|numeric',
+            'mobileno' => 'required',
             'age' => 'required|numeric',
             'gender' => 'required|min_length[1]|max_length[1]',
             'address' => 'required',

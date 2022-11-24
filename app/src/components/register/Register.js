@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import './Register.css';
-import '../card.css';
-import { useNavigate } from "react-router-dom"
 import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import '../card.css';
+import './Register.css';
 
 const url = "http://localhost:8080/"
 export default function Register() {
@@ -106,7 +106,7 @@ export default function Register() {
                     </div>
                     <div>
                         <label htmlFor="Mobileno" className={error['mobileno'] ? 'text-rose-500' : ''}>Mobile number</label>
-                        <input type="tel" placeholder="09286120906" className={error['mobileno'] ? 'text-rose-500' : ''} id="Mobileno" name="mobileno" required onChange={handleChange} />
+                        <input type="number" placeholder="09286120906" className={error['mobileno'] ? 'text-rose-500' : ''} id="Mobileno" name="mobileno" required onChange={handleChange} />
                     </div>
                 </div>
 

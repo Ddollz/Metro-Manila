@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
 import axios from "axios";
+import React, { useEffect, useState } from 'react';
 import './welcome.css';
 
 const url = "http://localhost:8080/"
@@ -65,10 +65,15 @@ export default function Welcome() {
 
 
     const handleCityFilter = (event, e) => {
-        setfilteredBarangay(barangays.filter(b => b.city_id === event.target.value))
-        setCity_idFilter(event.target.value)
+        if (event.target.value !== "All") {
+            setfilteredBarangay(barangays.filter(b => b.city_id === event.target.value))
+            setCity_idFilter(event.target.value)
+        }
+        else {
+            setCity_idFilter(cities)
+        }
     };
-    
+
     const handleBarangayFilter = (event, e) => {
         setbarangays_idFilter(event.target.value)
     };
@@ -143,7 +148,7 @@ export default function Welcome() {
                                         return user
                                     }
                                     return false
-                                }else{
+                                } else {
                                     return user
                                 }
                             }).filter(user => {
@@ -152,7 +157,7 @@ export default function Welcome() {
                                         return user
                                     }
                                     return false
-                                }else{
+                                } else {
                                     return user
                                 }
                             }).map((user, key) =>
